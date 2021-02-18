@@ -95,6 +95,8 @@ function start(baseURL, sessionPath, screenshotPath) {
             throw err;
         }
 
+        files = files.filter((file) => path.extname(file) === '.json');
+
         for (let i = 0; i < files.length; i++) {
             console.log(`start session ${files[i]}`);
             await captureScreenshotFromSession(path.join(SESSION_PATH, files[i]));
