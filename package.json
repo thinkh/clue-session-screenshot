@@ -1,0 +1,14 @@
+{
+  "name": "clue-session-screenshot",
+  "version": "1.0.0",
+  "description": "Takes screenshots for every state from exported CLUE sessions (aka provenance graphs).",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "puppeteer": "^7.1.0"
+  },
+  "author": "Holger Stitz",
+  "license": "MIT"
+}

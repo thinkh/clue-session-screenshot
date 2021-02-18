@@ -1,0 +1,10 @@
+# do not commit node_modules
+node_modules
+
+# ignore all files in these folders
+screenshots/*
+sessions/*
+
+# don't ignore keep files
+!.keep
+!.gitkeep
