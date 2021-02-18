@@ -62,19 +62,24 @@ function start(baseURL, sessionPath, screenshotPath) {
             fs.mkdirSync(sessionPath);
         }
 
-        function extractStateIdsFromSession(sessionFile) {
+        function extractStateInfoFromSession(sessionFile) {
             const session = JSON.parse(fs.readFileSync(sessionFile, 'utf8'));
             const states = session.nodes.filter((node) => node.type === 'state');
-            return states.map((state) => state.id);
+            return states.map((state) => {
+                return {
+                    id: state.id,
+                    name: state.attrs.name
+                };
+            });
         }
 
-        console.log('extract state ids from session');
-        const stateIds = extractStateIdsFromSession(sessionFile);
-        console.log('number of states', stateIds.length);
+        console.log('extract state information from session');
+        const stateInfo = extractStateInfoFromSession(sessionFile);
+        console.log('number of states', stateInfo.length);
 
-        for (let i = 0; i < stateIds.length; i++) {
-            const sessionStateURL = `${sessionUrl}&clue_state=${stateIds[i]}`;
-            const sessionScreenshotPath = path.join(sessionPath, `${stateIds[i]}.png`);
+        for (let i = 0; i < stateInfo.length; i++) {
+            const sessionStateURL = `${sessionUrl}&clue_state=${stateInfo[i].id}`;
+            const sessionScreenshotPath = path.join(sessionPath, `${stateInfo[i].id}_${stateInfo[i].name}.png`);
 
             await page.goto(sessionStateURL, {
                 // waitUntil: 'networkidle2', // no need to wait again since everything is already loaded
